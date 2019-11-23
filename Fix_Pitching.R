@@ -82,3 +82,50 @@ TBR_Rotation <- clean_pitch(TBR_PITCH)
 WSN_PITCH <- read_csv("WSN_PITCH.csv")
 WSN_Rotation <- clean_pitch(WSN_PITCH)
 
+#Adding probability of a pitcher giving up a single, double, triple and HR
+add_prob <- function(team){
+  df <- as.data.frame(team)
+  df <- df %>%
+    #Singles
+    mutate(., p1B = (df[,9] - df[,10] - df[,11] - df[,12])/df[,6]) %>%
+    #Doubles (not taken as an average of doubles and triples based on league average
+    #because we believe that the odds of a double and triple happening is already
+    #well represented in the season data)
+    mutate(., p2B = df[,10]/df[,6]) %>%
+    #Triples
+    mutate(., p3B = df[,11]/df[,6]) %>%
+    #Homerun
+    mutate(., pHR = df[,12]/df[,6]) %>%
+    #Walks and HBP
+    mutate(., pBB = (df[,15] + df[,24])/df[,6])
+  df
+}
+ATL_Pitching <- add_prob(ATL_Rotation)
+HOU_Pitching <- add_prob(HOU_Rotation)
+LAD_Pitching <- add_prob(LAD_Rotation)
+MIL_Pitching <- add_prob(MIL_Rotation)
+MIN_Pitching <- add_prob(MIN_Rotation)
+NYY_Pitching <- add_prob(NYY_Rotation)
+OAK_Pitching <- add_prob(OAK_Rotation)
+STL_Pitching <- add_prob(STL_Rotation)
+TBR_Pitching <- add_prob(TBR_Rotation)
+WSN_Pitching <- add_prob(WSN_Rotation)
+
+#League average probabilities of base hits
+LEAGUE_AVG <- read_csv("LEAGUE_AVG.csv")
+#Only keeping league total to minimize size of the data frame
+LEAGUE_AVG <- LEAGUE_AVG[32,]
+LEAGUE_AVG <- LEAGUE_AVG %>%
+  #Singles
+  mutate(., p1B = (LEAGUE_AVG$H - LEAGUE_AVG$`2B` - LEAGUE_AVG$`3B` - LEAGUE_AVG$HR)/LEAGUE_AVG$PA) %>%
+  #Doubles (not taken as an average of doubles and triples based on league average
+  #because we believe that the odds of a double and triple happening is already
+  #well represented in the season data)
+  mutate(., p2B = LEAGUE_AVG$`2B`/LEAGUE_AVG$PA) %>%
+  #Triples
+  mutate(., p3B = LEAGUE_AVG$`3B`/LEAGUE_AVG$PA) %>%
+  #Homerun
+  mutate(., pHR = LEAGUE_AVG$HR/LEAGUE_AVG$PA) %>%
+  #Walks and HBP
+  mutate(., pBB = (LEAGUE_AVG$BB + LEAGUE_AVG$HBP)/LEAGUE_AVG$PA)
+LEAGUE_AVG$pHR
