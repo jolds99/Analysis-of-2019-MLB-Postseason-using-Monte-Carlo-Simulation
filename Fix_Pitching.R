@@ -133,6 +133,3 @@ AL_AVG <- AL_AVG %>%
   mutate(., pHR = AL_AVG$HR/AL_AVG$PA) %>%
   #Walks and HBP
   mutate(., pBB = (AL_AVG$BB + AL_AVG$HBP)/AL_AVG$PA)
-
-
-
