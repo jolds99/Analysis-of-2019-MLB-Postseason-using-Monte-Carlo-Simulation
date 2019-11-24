@@ -111,22 +111,26 @@ STL_Pitching <- add_prob(STL_Rotation)
 TBR_Pitching <- add_prob(TBR_Rotation)
 WSN_Pitching <- add_prob(WSN_Rotation)
 
-#League average probabilities of base hits
-LEAGUE_AVG <- read_csv("LEAGUE_AVG.csv")
-#Only keeping league total to minimize size of the data frame
-LEAGUE_AVG <- LEAGUE_AVG[32,]
-LEAGUE_AVG$Tm <- "League"
-LEAGUE_AVG <- LEAGUE_AVG %>%
+#AL average probabilities of base hits
+#Using only AL because league-wide values are skewed by the NL's 
+#lack of a DH. However, among regular hitting positions
+#there shouldn't be a significant difference in offensive results
+#between the two leagues.
+AL_AVG <- read_csv("AL_AVG.csv")
+#Only keeping AL total to minimize size of the data frame
+AL_AVG <- AL_AVG[17,]
+AL_AVG$Tm <- "AL"
+AL_AVG <- AL_AVG %>%
   #Singles
-  mutate(., p1B = (LEAGUE_AVG$H - LEAGUE_AVG$`2B` - LEAGUE_AVG$`3B` - LEAGUE_AVG$HR)/LEAGUE_AVG$PA) %>%
-  #Doubles (not taken as an average of doubles and triples based on league average
+  mutate(., p1B = (AL_AVG$H - AL_AVG$`2B` - AL_AVG$`3B` - AL_AVG$HR)/AL_AVG$PA) %>%
+  #Doubles (not taken as an average of doubles and triples based on AL average
   #because we believe that the odds of a double and triple happening is already
   #well represented in the season data)
-  mutate(., p2B = LEAGUE_AVG$`2B`/LEAGUE_AVG$PA) %>%
+  mutate(., p2B = AL_AVG$`2B`/AL_AVG$PA) %>%
   #Triples
-  mutate(., p3B = LEAGUE_AVG$`3B`/LEAGUE_AVG$PA) %>%
+  mutate(., p3B = AL_AVG$`3B`/AL_AVG$PA) %>%
   #Homerun
-  mutate(., pHR = LEAGUE_AVG$HR/LEAGUE_AVG$PA) %>%
+  mutate(., pHR = AL_AVG$HR/AL_AVG$PA) %>%
   #Walks and HBP
-  mutate(., pBB = (LEAGUE_AVG$BB + LEAGUE_AVG$HBP)/LEAGUE_AVG$PA)
+  mutate(., pBB = (AL_AVG$BB + AL_AVG$HBP)/AL_AVG$PA)
 
