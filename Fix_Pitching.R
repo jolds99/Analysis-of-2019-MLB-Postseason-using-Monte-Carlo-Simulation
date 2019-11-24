@@ -115,6 +115,7 @@ WSN_Pitching <- add_prob(WSN_Rotation)
 LEAGUE_AVG <- read_csv("LEAGUE_AVG.csv")
 #Only keeping league total to minimize size of the data frame
 LEAGUE_AVG <- LEAGUE_AVG[32,]
+LEAGUE_AVG$Tm <- "League"
 LEAGUE_AVG <- LEAGUE_AVG %>%
   #Singles
   mutate(., p1B = (LEAGUE_AVG$H - LEAGUE_AVG$`2B` - LEAGUE_AVG$`3B` - LEAGUE_AVG$HR)/LEAGUE_AVG$PA) %>%
@@ -128,4 +129,4 @@ LEAGUE_AVG <- LEAGUE_AVG %>%
   mutate(., pHR = LEAGUE_AVG$HR/LEAGUE_AVG$PA) %>%
   #Walks and HBP
   mutate(., pBB = (LEAGUE_AVG$BB + LEAGUE_AVG$HBP)/LEAGUE_AVG$PA)
-LEAGUE_AVG$pHR
+
