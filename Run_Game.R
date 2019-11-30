@@ -1,11 +1,22 @@
-offense <- 
-test <- 
+#Testing how to get desired pitcher vs batter matchup probabilities
+offense <- OAK_Batting[rep(seq_len(nrow(OAK_Batting)), each = 5), ]
+defense <- do.call("rbind", replicate(10, TBR_Pitching, simplify = FALSE))
+offense <- offense %>% mutate(., Pitcher = rep(TBR_Pitching$Name, times = 10)) %>%
+  mutate(., p1B = (((offense$p1B)*(defense$p1B))/(AL_AVG$p1B))/(((((offense$p1B)*(defense$p1B))/(AL_AVG$p1B)))+(((1-offense$p1B)*(1-defense$p1B))/(1-AL_AVG$p1B)))) %>%
+  mutate(., p2B = (((offense$p2B)*(defense$p2B))/(AL_AVG$p2B))/(((((offense$p2B)*(defense$p2B))/(AL_AVG$p2B)))+(((1-offense$p2B)*(1-defense$p2B))/(1-AL_AVG$p2B)))) %>%
+  mutate(., p3B = (((offense$p3B)*(defense$p3B))/(AL_AVG$p3B))/(((((offense$p3B)*(defense$p3B))/(AL_AVG$p3B)))+(((1-offense$p3B)*(1-defense$p3B))/(1-AL_AVG$p3B)))) %>%
+  mutate(., pHR = (((offense$pHR)*(defense$pHR))/(AL_AVG$pHR))/(((((offense$pHR)*(defense$pHR))/(AL_AVG$pHR)))+(((1-offense$pHR)*(1-defense$pHR))/(1-AL_AVG$pHR)))) %>%
+  mutate(., pBB = (((offense$pBB)*(defense$pBB))/(AL_AVG$pBB))/(((((offense$pBB)*(defense$pBB))/(AL_AVG$pBB)))+(((1-offense$pBB)*(1-defense$pBB))/(1-AL_AVG$pBB))))
 
-game <- function(n, offense, defense){
-  offense <- as.data.frame(team1)
-  defense <- as.data.frame(team2)  
-  
-  
+game <- function(n, batting, pitching){
+  offense <- batting[rep(seq_len(nrow(batting)), each = 5), ]
+  defense <- do.call("rbind", replicate(10, TBR_Pitching, simplify = FALSE))
+  offense <- offense %>% mutate(., Pitcher = rep(TBR_Pitching$Name, times = 10)) %>%
+    mutate(., p1B = (((offense$p1B)*(defense$p1B))/(AL_AVG$p1B))/(((((offense$p1B)*(defense$p1B))/(AL_AVG$p1B)))+(((1-offense$p1B)*(1-defense$p1B))/(1-AL_AVG$p1B)))) %>%
+    mutate(., p2B = (((offense$p2B)*(defense$p2B))/(AL_AVG$p2B))/(((((offense$p2B)*(defense$p2B))/(AL_AVG$p2B)))+(((1-offense$p2B)*(1-defense$p2B))/(1-AL_AVG$p2B)))) %>%
+    mutate(., p3B = (((offense$p3B)*(defense$p3B))/(AL_AVG$p3B))/(((((offense$p3B)*(defense$p3B))/(AL_AVG$p3B)))+(((1-offense$p3B)*(1-defense$p3B))/(1-AL_AVG$p3B)))) %>%
+    mutate(., pHR = (((offense$pHR)*(defense$pHR))/(AL_AVG$pHR))/(((((offense$pHR)*(defense$pHR))/(AL_AVG$pHR)))+(((1-offense$pHR)*(1-defense$pHR))/(1-AL_AVG$pHR)))) %>%
+    mutate(., pBB = (((offense$pBB)*(defense$pBB))/(AL_AVG$pBB))/(((((offense$pBB)*(defense$pBB))/(AL_AVG$pBB)))+(((1-offense$pBB)*(1-defense$pBB))/(1-AL_AVG$pBB))))
   runs <- rep(NA, n)
   for(i in 1:n){
     inning <- 0

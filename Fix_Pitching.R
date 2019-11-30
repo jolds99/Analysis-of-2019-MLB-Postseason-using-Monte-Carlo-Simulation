@@ -111,6 +111,18 @@ STL_Pitching <- add_prob(STL_Rotation)
 TBR_Pitching <- add_prob(TBR_Rotation)
 WSN_Pitching <- add_prob(WSN_Rotation)
 
+#Removing unnecessary columns
+ATL_Pitching <- select(ATL_Pitching, Name, p1B, p2B, p3B, pHR, pBB)
+HOU_Pitching <- select(HOU_Pitching, Name, p1B, p2B, p3B, pHR, pBB)
+LAD_Pitching <- select(LAD_Pitching, Name, p1B, p2B, p3B, pHR, pBB)
+MIL_Pitching <- select(MIL_Pitching, Name, p1B, p2B, p3B, pHR, pBB)
+MIN_Pitching <- select(MIN_Pitching, Name, p1B, p2B, p3B, pHR, pBB)
+NYY_Pitching <- select(NYY_Pitching, Name, p1B, p2B, p3B, pHR, pBB)
+OAK_Pitching <- select(OAK_Pitching, Name, p1B, p2B, p3B, pHR, pBB)
+STL_Pitching <- select(STL_Pitching, Name, p1B, p2B, p3B, pHR, pBB)
+TBR_Pitching <- select(TBR_Pitching, Name, p1B, p2B, p3B, pHR, pBB)
+WSN_Pitching <- select(WSN_Pitching, Name, p1B, p2B, p3B, pHR, pBB)
+
 #AL average probabilities of base hits
 #Using only AL because league-wide values are skewed by the NL's 
 #lack of a DH. However, among regular hitting positions
@@ -133,3 +145,5 @@ AL_AVG <- AL_AVG %>%
   mutate(., pHR = AL_AVG$HR/AL_AVG$PA) %>%
   #Walks and HBP
   mutate(., pBB = (AL_AVG$BB + AL_AVG$HBP)/AL_AVG$PA)
+
+
