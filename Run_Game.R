@@ -13,14 +13,14 @@ offense <- offense %>% mutate(., Pitcher = rep(TBR_Pitching$Name, times = 10)) %
 offenseS <- filter(offense, pNum == 1)
 sample(c("Out","1B", "2B", "3B", "HR", "BB"), 1, 
        prob = c(1-offenseS$p1B[1] - offenseS$p2B[1] - offenseS$p3B[1] - offenseS$pHR[1] - offenseS$pBB[1], 
-                offenseS$p1B[1], offenseS$p1B[1], offenseS$p1B[1], offenseS$p1B[1], offenseS$p1B[1]))
+                offenseS$p1B[1], offenseS$p2B[1], offenseS$p3B[1], offenseS$pHR[1], offenseS$pBB[1]))
 
 
 game <- function(batting, pitching, pitcher, league){
   offense <- batting[rep(seq_len(nrow(batting)), each = 5), ]
-  defense <- do.call("rbind", replicate(10, TBR_Pitching, simplify = FALSE))
+  defense <- do.call("rbind", replicate(10, pitching, simplify = FALSE))
   #Establishing probailities of hits for pitcher vs batter matchups
-  offense <- offense %>% mutate(., Pitcher = rep(TBR_Pitching$Name, times = 10)) %>%
+  offense <- offense %>% mutate(., Pitcher = rep(pitching$Name, times = 10)) %>%
     mutate(., pNum = rep(1:5, times = 10)) %>%
     arrange(., Pitcher) %>%
     mutate(., p1B = (((offense$p1B)*(defense$p1B))/(AL_AVG$p1B))/(((((offense$p1B)*(defense$p1B))/(AL_AVG$p1B)))+(((1-offense$p1B)*(1-defense$p1B))/(1-AL_AVG$p1B)))) %>%
