@@ -203,7 +203,7 @@ championship <- function(n, home, away){
 }
 #Simulating each series 100,000 times
 nlCS1 <- championship(100000, "LAD", "STL")
-nlCS2 <- championship(100000, "ATL", "LAD")
+nlCS2 <- championship(100000, "LAD", "ATL")
 nlCS3 <- championship(100000, "ATL", "WSN")
 nlCS4 <- championship(100000, "ATL", "MIL")
 nlCS5 <- championship(100000, "STL", "MIL")
