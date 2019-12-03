@@ -17,6 +17,7 @@ sample(c("Out","1B", "2B", "3B", "HR", "BB"), 1,
 
 
 game <- function(batting, pitching, pitcher, league){
+  
   offense <- batting[rep(seq_len(nrow(batting)), each = 5), ]
   defense <- do.call("rbind", replicate(10, pitching, simplify = FALSE))
   #Establishing probailities of hits for pitcher vs batter matchups
