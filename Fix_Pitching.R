@@ -1,5 +1,6 @@
 library(tidyverse)
 library(stringr)
+library(stringi)
 MLB_PITCH <- read_csv("MLB_PITCH.csv")
 #Clean MLB_PITCH 
 #Remove teams stats, player first initial and player WAR
