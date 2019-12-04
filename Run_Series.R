@@ -18,6 +18,7 @@ wildcard <- function(n, home, away){
   }
   for(i in 1:n){
     #Away on Offense
+    print(paste0("Running game: ", i, " of ", n)
     abatting <- get(paste0(away, "_Batting"))
     hpitching <- get(paste0(home, "_Pitching"))
     #Ace will start in Wild Card game
@@ -63,6 +64,7 @@ divisional <- function(n, home, away){
   }
   for(i in 1:n){
     #Initializing series info
+    print(paste0("Running series: ", i, " of ", n)
     awins <- 0
     hwins <- 0
     pNum <- 1
@@ -142,6 +144,7 @@ championship <- function(n, home, away){
   }
   for(i in 1:n){
     #Initializing series info
+    print(paste0("Running series: ", i, " of ", n)
     awins <- 0
     hwins <- 0
     pNum <- 1
@@ -222,6 +225,7 @@ worldseries <- function(n, home, away){
   colnames(results) <- c(away, home, "Champion")
   for(i in 1:n){
     #Initializing series info
+    print(paste0("Running series: ", i, " of ", n)
     awins <- 0
     hwins <- 0
     pNum <- 1
