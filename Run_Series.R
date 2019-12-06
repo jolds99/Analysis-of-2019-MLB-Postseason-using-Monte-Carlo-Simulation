@@ -225,7 +225,7 @@ worldseries <- function(n, home, away){
   colnames(results) <- c(away, home, "Champion")
   for(i in 1:n){
     #Initializing series info
-    print(paste0("Running series: ", i, " of ", n)
+    print(paste0("Running series: ", i, " of ", n))
     awins <- 0
     hwins <- 0
     pNum <- 1
