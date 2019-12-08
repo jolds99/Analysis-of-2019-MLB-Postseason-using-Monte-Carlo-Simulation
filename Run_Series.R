@@ -18,7 +18,7 @@ wildcard <- function(n, home, away){
   }
   for(i in 1:n){
     #Away on Offense
-    print(paste0("Running game: ", i, " of ", n))
+    #print(paste0("Running game: ", i, " of ", n))
     abatting <- get(paste0(away, "_Batting"))
     hpitching <- get(paste0(home, "_Pitching"))
     #Ace will start in Wild Card game
@@ -43,7 +43,7 @@ wildcard <- function(n, home, away){
       results[i,3] <- away
     }
   }
-  print(paste0(home, " is predicted to have a ", (sum(results[,3] == home)/n)*100, "% chance of winning the Wild Card game."))
+  #print(paste0(home, " is predicted to have a ", (sum(results[,3] == home)/n)*100, "% chance of winning the Wild Card game."))
   return(results)
 }
 #Simulating each game 100,000 times
@@ -64,10 +64,12 @@ divisional <- function(n, home, away){
   }
   for(i in 1:n){
     #Initializing series info
-    print(paste0("Running series: ", i, " of ", n))
+    #print(paste0("Running series: ", i, " of ", n))
     awins <- 0
     hwins <- 0
+    #Determining which pitcher is up to play
     pNum <- 1
+    #Best of 5 series
     while(awins < 3 && hwins < 3) {
       if(pNum > 4){
         pNum <- 1
@@ -120,7 +122,7 @@ divisional <- function(n, home, away){
       results[i,3] <- away
     }
   }
-  print(paste0(home, " is predicted to have a ", (sum(results[,3] == home)/n)*100, "% chance of winning the series."))
+  #print(paste0(home, " is predicted to have a ", (sum(results[,3] == home)/n)*100, "% chance of winning the series."))
   return(results)
 }
 #Simulating each series 100,000 times
@@ -144,7 +146,7 @@ championship <- function(n, home, away){
   }
   for(i in 1:n){
     #Initializing series info
-    print(paste0("Running series: ", i, " of ", n))
+    #print(paste0("Running series: ", i, " of ", n))
     awins <- 0
     hwins <- 0
     pNum <- 1
@@ -201,7 +203,7 @@ championship <- function(n, home, away){
       results[i,3] <- away
     }
   }
-  print(paste0(home, " is predicted to have a ", (sum(results[,3] == home)/n)*100, "% chance of winning the series."))
+  #print(paste0(home, " is predicted to have a ", (sum(results[,3] == home)/n)*100, "% chance of winning the series."))
   results
 }
 #Simulating each series 100,000 times
