@@ -1,15 +1,8 @@
 source("Fix_Pitching.R")
-#Inning data in format of home_team, home_score, vis_team, vis_score, inning, 
-#topbot, outs, runners_pos, home_pitch, vis_pitch
-#n = number of simulations
 
 inning <- function(n, ibases, iouts){
   runs <- rep(NA, n)
   for(i in 1:n){
-  #  inningNum <- 1
-  #  return(inningNum)
-  #  for(inning in 1:n){
-      #inning <- inning + 1
       #Initializing values that are tracked throughout the inning
       play <- 0
       outcome <- rep()
@@ -23,8 +16,8 @@ inning <- function(n, ibases, iouts){
         play <- play + 1
         outcome <- c(outcome, NA)
         outcome[play] <-  sample(c("Out","1B", "2B", "3B", "HR", "BB"), 1, 
-                 prob = c(1-LEAGUE_AVG$p1B - LEAGUE_AVG$p2B - LEAGUE_AVG$p3B - LEAGUE_AVG$pHR - LEAGUE_AVG$pBB, 
-                          LEAGUE_AVG$p1B, LEAGUE_AVG$p2B, LEAGUE_AVG$p3B, LEAGUE_AVG$pHR, LEAGUE_AVG$pBB))
+                 prob = c(1-AL_AVG$p1B - AL_AVG$p2B - AL_AVG$p3B - AL_AVG$pHR - AL_AVG$pBB, 
+                          AL_AVG$p1B, AL_AVG$p2B, AL_AVG$p3B, AL_AVG$pHR, AL_AVG$pBB))
         if(outcome[play] == "1B"){
           #print("Single")
           if(bases == 000){
@@ -207,7 +200,7 @@ inning <- function(n, ibases, iouts){
 
 #Creating dataframe to track how the simulation compares to the prospectus
 #in runs expected given the different game scenarios
-gameScenDF <- rbind(rep(NA,6),rep(NA,6),rep(NA,6),rep(NA,6),rep(NA,6),rep(NA,6),rep(NA,6),rep(NA,6))
+GameScenDF <- rbind(rep(NA,6),rep(NA,6),rep(NA,6),rep(NA,6),rep(NA,6),rep(NA,6),rep(NA,6),rep(NA,6))
 colnames(gameScenDF) <- c("0 - Pros", "0 - Model", "1 - Pros", "1 - Model", "2 - Pros", "2- Model")
 row.names(gameScenDF) <- c("000", "001", "010","100","011", "101", "110", "111")
 #Function to run an inning given the conditions
