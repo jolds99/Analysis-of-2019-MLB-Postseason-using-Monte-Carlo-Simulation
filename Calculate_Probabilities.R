@@ -95,8 +95,8 @@ WS8 = read_csv("ws8.csv")
 WS9 = read_csv("ws9.csv")
 WS10 = read_csv("ws10.csv")
 WS11 = read_csv("ws11.csv")
-#WS12 = read_csv("ws12.csv")
-#WS13 = read_csv("ws13.csv")
+WS12 = read_csv("ws12.csv")
+WS13 = read_csv("ws13.csv")
 WS14 = read_csv("ws14.csv")
 WS15 = read_csv("ws15.csv")
 WS16 = read_csv("ws16.csv")
@@ -132,20 +132,19 @@ LAD_Win_WS = (LAD_Adv_WS *
                    ((sum(WS23$Champion == "LAD")/100000)*(HOU_Adv_WS)) + 
                    ((sum(WS24$Champion == "LAD")/100000)*(NYY_Adv_WS))))
 
+MIL_Win_WS = (MIL_Adv_WS * 
+                (((sum(WS1$Champion == "MIL")/100000)*(NYY_Adv_WS)) + 
+                ((sum(WS2$Champion == "MIL")/100000)*(HOU_Adv_WS)) + 
+                ((sum(WS6$Champion == "MIL")/100000)*(TBR_Adv_WS)) + 
+                ((sum(WS12$Champion == "MIL")/100000)*(OAK_Adv_WS)) + 
+                ((sum(WS25$Champion == "MIL")/100000)*(MIN_Adv_WS))))
 
-# MIL_Win_WS = (MIL_Adv_WS * 
-#                (((sum(WS1$Champion == "MIL")/100000)*(NYY_Adv_WS)) + 
-#                ((sum(WS2$Champion == "MIL")/100000)*(HOU_Adv_WS)) + 
-#                ((sum(WS6$Champion == "MIL")/100000)*(TBR_Adv_WS)) + 
-#                ((sum(WS12$Champion == "MIL")/100000)*(OAK_Adv_WS)) + 
-#                ((sum(WS25$Champion == "MIL")/100000)*(MIN_Adv_WS))))
-
-# WSN_Win_WS = (WSN_Adv_WS * 
-#               (((sum(WS7$Champion == "WSN")/100000)*(TBR_Adv_WS)) + 
-#                ((sum(WS11$Champion == "WSN")/100000)*(NYY_Adv_WS)) + 
-#                ((sum(WS13$Champion == "WSN")/100000)*(OAK_Adv_WS)) + 
-#                ((sum(WS14$Champion == "WSN")/100000)*(MIN_Adv_WS)) + 
-#                ((sum(WS22$Champion == "WSN")/100000)*(HOU_Adv_WS))))
+WSN_Win_WS = (WSN_Adv_WS * 
+               (((sum(WS7$Champion == "WSN")/100000)*(TBR_Adv_WS)) + 
+                ((sum(WS11$Champion == "WSN")/100000)*(NYY_Adv_WS)) + 
+                ((sum(WS13$Champion == "WSN")/100000)*(OAK_Adv_WS)) + 
+                ((sum(WS14$Champion == "WSN")/100000)*(MIN_Adv_WS)) + 
+                ((sum(WS22$Champion == "WSN")/100000)*(HOU_Adv_WS))))
 
 MIN_Win_WS = (MIN_Adv_WS * 
                 (((sum(WS14$Champion == "MIN")/100000)*(WSN_Adv_WS)) + 
@@ -175,9 +174,9 @@ TBR_Win_WS = (TBR_Adv_WS *
                    ((sum(WS9$Champion == "TBR")/100000)*(ATL_Adv_WS)) + 
                    ((sum(WS15$Champion == "TBR")/100000)*(LAD_Adv_WS))))
 
-# OAK_Win_WS = (OAK_Adv_WS * 
-#                 (((sum(WS8$Champion == "OAK")/100000)*(STL_Adv_WS)) + 
-#                 ((sum(WS10$Champion == "OAK")/100000)*(ATL_Adv_WS)) + 
-#                 ((sum(WS12$Champion == "OAK")/100000)*(MIL_Adv_WS)) + 
-#                 ((sum(WS13$Champion == "OAK")/100000)*(WSN_Adv_WS)) + 
-#                 ((sum(WS18$Champion == "OAK")/100000)*(LAD_Adv_WS))))
+OAK_Win_WS = (OAK_Adv_WS * 
+                 (((sum(WS8$Champion == "OAK")/100000)*(STL_Adv_WS)) + 
+                 ((sum(WS10$Champion == "OAK")/100000)*(ATL_Adv_WS)) + 
+                 ((sum(WS12$Champion == "OAK")/100000)*(MIL_Adv_WS)) + 
+                 ((sum(WS13$Champion == "OAK")/100000)*(WSN_Adv_WS)) + 
+                 ((sum(WS18$Champion == "OAK")/100000)*(LAD_Adv_WS))))
