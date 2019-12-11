@@ -1,4 +1,7 @@
 source("Fix_Pitching.R")
+install.packages("kableExtra")
+library(ggplot2)
+library(tidyverse)
 
 inning <- function(n, ibases, iouts){
   runs <- rep(NA, n)
@@ -201,8 +204,8 @@ inning <- function(n, ibases, iouts){
 #Creating dataframe to track how the simulation compares to the prospectus
 #in runs expected given the different game scenarios
 GameScenDF <- rbind(rep(NA,6),rep(NA,6),rep(NA,6),rep(NA,6),rep(NA,6),rep(NA,6),rep(NA,6),rep(NA,6))
-colnames(gameScenDF) <- c("0 - Pros", "0 - Model", "1 - Pros", "1 - Model", "2 - Pros", "2- Model")
-row.names(gameScenDF) <- c("000", "001", "010","100","011", "101", "110", "111")
+colnames(GameScenDF) <- c("0 - Pros", "0 - Sim", "1 - Pros", "1 - Sim", "2 - Pros", "2- Sim")
+row.names(GameScenDF) <- c("000", "001", "010","100","011", "101", "110", "111")
 #Function to run an inning given the conditions
 gameScen <- function(n,b,o){
   sim <- inning(n,b,o)
@@ -239,22 +242,26 @@ GameScenDF[6,6] <- gameScen(10000000, 101, 2)
 GameScenDF[7,6] <- gameScen(10000000, 110, 2)
 GameScenDF[8,6] <- gameScen(10000000, 111, 2)
 
-#Viewing how good of a fit the model 
+#Viewing how good of a fit the simulations were
 prospectus <- c(GameScenDF[,1], GameScenDF[,3], GameScenDF[,5])
-model <- c(GameScenDF[,2],GameScenDF[,4],GameScenDF[,6])
-prosmodel<- lm(model ~ prospectus)
-summary(prosmodel)
+sim <- c(GameScenDF[,2],GameScenDF[,4],GameScenDF[,6])
+prosim<- lm(sim ~ prospectus)
+summary(prosim)
 
-cor(prospectus, model)
+cor(prospectus, sim)
 #Correlation = 0.987 (good)
-prosmodel$coefficients
-#Slope = 0.850 (should be closer to 1)
-#Intercept = 0.089 (should be closer to 0)
+prosim$coefficients
+#Slope = 0.854 (should be closer to 1)
+#Intercept = 0.091 (should be closer to 0)
 
 #Ideal line in red
-#Prosectus vs Model line in Blue
-ggplot(prosmodel, aes(x = prospectus, y = model)) + geom_point() +
-  geom_smooth(method = 'lm') + title(xlab = "Prospectus Expected Runs", ylab = "Model Expected Runs") +
+#Prosectus vs sim line in Blue
+library(ggplot2)
+ggplot(prosim, aes(x = prospectus, y = sim)) + geom_point() +
+  geom_smooth(method = 'lm') + title(xlab = "Prospectus Expected Runs", ylab = "sim Expected Runs") +
   geom_abline(slope = 1, color = "red")
 
-
+library(kableExtra)
+GameScenDF%>%
+  kable(.)%>%
+  kable_styling(.)
