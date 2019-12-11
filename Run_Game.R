@@ -15,7 +15,6 @@ sample(c("Out","1B", "2B", "3B", "HR", "BB"), 1,
        prob = c(1-offenseS$p1B[1] - offenseS$p2B[1] - offenseS$p3B[1] - offenseS$pHR[1] - offenseS$pBB[1], 
                 offenseS$p1B[1], offenseS$p2B[1], offenseS$p3B[1], offenseS$pHR[1], offenseS$pBB[1]))
 
-
 game <- function(batting, pitching, pitcher, league){
   
   offense <- batting[rep(seq_len(nrow(batting)), each = 5), ]
