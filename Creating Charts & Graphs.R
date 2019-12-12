@@ -106,3 +106,25 @@ colnames(Houston_Example) = c("Batting Lineup", "Pitching Rotation")
 Houston_Example %>% 
   kable(.) %>%
   kable_styling(.)
+
+#Loading in Regular Season win data for playoff teams
+RegSeas <- read.csv("RegSeasRec.csv")
+RegSeas$W <- as.integer(RegSeas$W)
+class(RegSeas$W)
+RegSeas <- filter(RegSeas, grepl("-", RegSeas$Tm))
+RegSeas$Tm <- str_sub(RegSeas$Tm, start = 3, end = 5)
+#Only keeping team names and wins for simplicity
+RegSeas <- RegSeas[,c(2,5)]
+class(RegSeas$W)
+#World Series probs
+Win_WS_Probabilities <- round(c(HOU_Win_WS, LAD_Win_WS, NYY_Win_WS,MIN_Win_WS,ATL_Win_WS,
+                               OAK_Win_WS, TBR_Win_WS, WSN_Win_WS, STL_Win_WS,MIL_Win_WS),3)
+RegSeas <- cbind(RegSeas, Win_WS_Probabilities)
+
+library(ggplot2)
+install.packages("ggrepel")
+library(ggrepel)
+ggplot(RegSeas, aes(x = W, y = Win_WS_Probabilities, label = RegSeas$Tm)) + 
+  geom_label_repel(box.padding = .35) + xlab("# of Regular Season Wins") + ylab("Calculated Probability of Winning World Series")
+
+
