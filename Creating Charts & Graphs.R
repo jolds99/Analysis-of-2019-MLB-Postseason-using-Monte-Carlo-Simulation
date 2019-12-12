@@ -4,6 +4,8 @@ install.packages("kableExtra")
 library(kableExtra)
 library(stringr)
 library(stringi)
+install.packages("ggrepel")
+library(ggrepel)
 
 #CHART/GRAPH 1
 
@@ -107,6 +109,8 @@ Houston_Example %>%
   kable(.) %>%
   kable_styling(.)
 
+#CHART/GRAPH 3
+#Creating Graph of World Series Probabilites by Regular Season Wins
 #Loading in Regular Season win data for playoff teams
 RegSeas <- read.csv("RegSeasRec.csv")
 RegSeas$W <- as.integer(RegSeas$W)
@@ -121,10 +125,36 @@ Win_WS_Probabilities <- round(c(HOU_Win_WS, LAD_Win_WS, NYY_Win_WS,MIN_Win_WS,AT
                                OAK_Win_WS, TBR_Win_WS, WSN_Win_WS, STL_Win_WS,MIL_Win_WS),3)
 RegSeas <- cbind(RegSeas, Win_WS_Probabilities)
 
-library(ggplot2)
-install.packages("ggrepel")
-library(ggrepel)
 ggplot(RegSeas, aes(x = W, y = Win_WS_Probabilities, label = RegSeas$Tm)) + 
   geom_label_repel(box.padding = .35) + xlab("# of Regular Season Wins") + ylab("Calculated Probability of Winning World Series")
 
+#CHART/GRAPH 4
+#Chart Displaying All Final Probabilities
+Teams = c("Houston Astros", "Minnesota Twins", "New York Yankees", "Tampa Bay Rays", "Oakland Athletics",
+          "Los Angeles Dodgers", "Atlanta Braves", "St. Louis Cardinals", "Washington Nationals", "Milwuakee Brewers")
 
+LDS_Probabilities = round(c(HOU_Adv_LDS, MIN_Adv_LDS, NYY_Adv_LDS,TBR_Adv_LDS,OAK_Adv_LDS,
+                            LAD_Adv_LDS, ATL_Adv_LDS, STL_Adv_LDS, WSN_Adv_LDS,MIL_Adv_LDS),3)
+LCS_Probabilities = round(c(HOU_Adv_LCS, MIN_Adv_LCS, NYY_Adv_LCS,TBR_Adv_LCS,OAK_Adv_LCS,
+                            LAD_Adv_LCS, ATL_Adv_LCS, STL_Adv_LCS, WSN_Adv_LCS,MIL_Adv_LCS),3)
+WS_Probabilities = round(c(HOU_Adv_WS, MIN_Adv_WS, NYY_Adv_WS,TBR_Adv_WS,OAK_Adv_WS,
+                           LAD_Adv_WS, ATL_Adv_WS, STL_Adv_WS, WSN_Adv_WS,MIL_Adv_WS),3)
+Win_WS_Probabilities = round(c(HOU_Win_WS, MIN_Win_WS, NYY_Win_WS,TBR_Win_WS,OAK_Win_WS,
+                               LAD_Win_WS, ATL_Win_WS, STL_Win_WS, WSN_Win_WS,MIL_Win_WS),3)
+
+Probabilities_Chart = cbind(Teams, LDS_Probabilities, LCS_Probabilities,
+                            WS_Probabilities, Win_WS_Probabilities)
+
+Probabilities_Chart = as.data.frame(Probabilities_Chart)
+colnames(Probabilities_Chart) = c("Team", "P(Advance to LDS)", "P(Advance to LCS)", "P(Advance to WS)", "P(Win WS)")
+grid.table(Probabilities_Chart)
+
+#CHART/GRAPH 5
+#Bar Chart of Win WS Probabilities
+
+Teams_New = c("Astros", "Twins", "Yankees", "Rays", "Athletics", "Dodgers", "Braves", "Cardinals", "Nationals", "Brewers")
+team_colors = c("#005A9C", "#EB6E1F", "#CE1141", "#002B5C", "#0C2340",
+                "#C41E3A", "#FFFFFF", "#8FBCE6", "#003831", "#B6922E")
+bp = ggplot(Probabilities_Chart, aes(x = reorder(Teams_New, -Win_WS_Probabilities), y = Win_WS_Probabilities)) + 
+  geom_bar(stat="identity", fill = team_colors) + xlab("Team") + ylab("Probability of Winning World Series")
+bp
