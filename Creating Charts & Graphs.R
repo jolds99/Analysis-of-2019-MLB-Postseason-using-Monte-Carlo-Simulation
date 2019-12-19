@@ -158,3 +158,16 @@ team_colors = c("#005A9C", "#EB6E1F", "#CE1141", "#002B5C", "#0C2340",
 bp = ggplot(Probabilities_Chart, aes(x = reorder(Teams_New, -Win_WS_Probabilities), y = Win_WS_Probabilities)) + 
   geom_bar(stat="identity", fill = team_colors) + xlab("Team") + ylab("Probability of Winning World Series")
 bp
+
+# Chart 6 
+#Probabilities of Winning World Series by Regular Season Wins for Original Study
+Win_WS_Probabilities <- c(0.233, 0.146, 0.092, 0.063,
+                          0.161, 0.136, 0.104, 0.064)
+Teams = c("TEX", "NYY", "TBR", "MIN", "SFG", "ATL", "PHI", "CHI")
+Wins = c(90,95,96,94,92,91,97,91)
+
+RegSeas = cbind(Teams, Wins, Win_WS_Probabilities)
+RegSeas = as.data.frame(RegSeas)
+
+ggplot(RegSeas, aes(x = Wins, y = Win_WS_Probabilities, label = Teams)) + 
+  geom_label_repel(box.padding = .35) + xlab("# of Regular Season Wins") + ylab("Calculated Probability of Winning World Series")
