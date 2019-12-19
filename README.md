@@ -9,7 +9,7 @@ There are 8 R scripts in the repository. The order in which they should be ran t
   - Defense.R
   - Run_Inning.R (this contains many simulations that are very time consuming and are not necessary to run the rest of the files. Our results from the simulations are in the Inning_Sims.csv)
   - Run_Game.R
-  - Run_Series.R (this also contains many simulations that took the three of us about 5-6 days to run. We would not advise running the series simulations. Our completed simulations are in the many csv's in the repository that read like __wc.csv, __ds_.csv, __cs_.csv and ws_.csv)
+  - Run_Series.R (this also contains many simulations that took the three of us about 5-6 days to run. We would not advise running the series simulations. Our completed simulations are in the many csv's in the repository that read like ""wc.csv, ""ds".csv, ""cs".csv and ws".csv)
   - Calculate_Probabilities.R
   - Create Charts & Graphs.R
   
