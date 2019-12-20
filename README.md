@@ -16,3 +16,4 @@ There are 8 R scripts in the repository. The order in which they should be run t
   
 Be sure to load the images.zip file to load the pictures for the paper and presentation. We decided to use pictures in the markdown rather than the actual code because the outcome will be the same (this can be checked by running the various charts and graphs), but in a more simple and guaranteed way.
   
+The final paper is "finalppaper.pdf" and the final presentation is "final_presentation_pdf.pdf".
