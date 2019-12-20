@@ -1,9 +1,9 @@
 # project_3
 This is a project for the STAT 400 course during the Fall 2019 semester at Colorado State University.
 The members of this group are students Quinn Johnson, Jonathan Olds and Andrew Wiggans.
-Our project's goal is to use Monte Carlo simulation to determine if the the best team in the 2019 MLB Postseason won the World Series (based on a 2012 article by Thomas W. Rudelius).
+Our project's goal is to use Monte Carlo simulation to determine if the the 'best' team in the 2019 MLB Postseason won the World Series (based on a 2012 article by Thomas W. Rudelius).
 
-There are 8 R scripts in the repository. The order in which they should be ran to ensure complete and successful reproducibility is:
+There are 8 R scripts in the repository. The order in which they should be run to ensure complete and successful reproducibility is:
   - Fix_Pitching.R
   - Batting_Probabilities.R
   - Defense.R
