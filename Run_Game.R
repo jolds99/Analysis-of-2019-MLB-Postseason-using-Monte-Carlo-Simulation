@@ -16,7 +16,6 @@ sample(c("Out","1B", "2B", "3B", "HR", "BB"), 1,
                 offenseS$p1B[1], offenseS$p2B[1], offenseS$p3B[1], offenseS$pHR[1], offenseS$pBB[1]))
 
 game <- function(batting, pitching, pitcher, league){
-  
   offense <- batting[rep(seq_len(nrow(batting)), each = 5), ]
   defense <- do.call("rbind", replicate(10, pitching, simplify = FALSE))
   #Establishing probailities of hits for pitcher vs batter matchups
@@ -230,9 +229,108 @@ game <- function(batting, pitching, pitcher, league){
         #print(as.character(bases))
       }
       else{
-        #print("Out")
-        #print(as.character(bases))
-        outs <- outs + 1
+        #Double Play (probability comes from https://legacy.baseballprospectus.com/sortable/index.php?cid=2861695)
+        dp <- sample(c("DP", "No_DP"), 1, prob = c(0.10109, 0.89891))
+        if(dp == "DP" & outs < 2 & bases == 001){
+          #print(dp)
+          outs <- outs + 2
+          bases <- 000
+        }
+        else if(dp == "DP" & outs < 2 & bases == 011){
+          #print(dp)
+          outs <- outs + 2
+          #Deciding which runners got out in the double play
+          dpbase <- sample(c("100", "010", "001"), 1, prob = c(1/3, 1/3, 1/3))
+          if(dpbase == "100"){
+            bases <- 100
+          }
+          else if(dpbase == "010"){
+            bases <- 010
+          }
+          else{
+            bases <- 001
+          }
+        }
+        else if (dp == "DP" & outs == 0 & bases == 111){
+          outs <- 2
+          #print(dp)
+          #These probabilities are infered
+          dpbase <- sample(c("101", "110", "011", "001", "010", "100"), 1, prob = c(1/6, 3/12, 1/3, 1/12, 1/12, 1/12))
+          if(dpbase == "101"){
+            bases <- 101
+          }
+          else if(dpbase == "110"){
+            bases <- 110
+          }
+          else if(dpbase == "011"){
+            bases <- 011
+          }
+          else if(dpbase == "001"){
+            bases <- 001
+            runs[i] <- runs[i]+1
+          }
+          else if(dpbase == "010"){
+            bases <- 010
+            runs[i] <- runs[i]+1
+          }
+          else if(dpbase == "100"){
+            bases <- 100
+            runs[i] <- runs[i]+1
+          }
+        }
+        else if (dp == "DP" & outs == 1 & bases == 111){
+          #print(dp)
+          outs <- 3
+        }
+        else{
+          #Sacrifice plays, couldn't find documentation about probability
+          #so infered probs
+          sac <- sample(c("sac", "no_sac"), 1, prob = c(0.075,0.925))
+          if(sac == "sac" & outs < 2 & bases == 100){
+            #print(sac)
+            runs[i] <- runs[i] + 1
+            bases <- 000
+            outs <- outs + 1
+          }
+          else if(sac == "sac" & outs < 2 & bases == 010){
+            #print(sac)
+            bases <- 100
+            outs <- outs + 1
+          }
+          else if(sac == "sac" & outs < 2 & bases == 001){
+            #print(sac)
+            bases <- 010
+            outs <- outs + 1
+          }
+          else if(sac == "sac" & outs < 2 & bases == 110){
+            #print(sac)
+            runs[i] <- runs[i] + 1
+            bases <- 100
+            outs <- outs + 1
+          }
+          else if(sac == "sac" & outs < 2 & bases == 101){
+            #print(sac)
+            runs[i] <- runs[i] + 1
+            bases <- 010
+            outs <- outs + 1
+          }
+          else if(sac == "sac" & outs < 2 & bases == 011){
+            #print(sac)
+            bases <- 110
+            outs <- outs + 1
+          }
+          else if(sac == "sac" & outs < 2 & bases == 111){
+            #print(sac)
+            runs[i] <- runs[i] + 1
+            bases <- 110
+            outs <- outs + 1
+          }
+          else{
+            #print("Out")
+            #print(as.character(bases))
+            outs <- outs + 1
+          }
+        }
       }
       batter <- batter + 1
     }
@@ -438,9 +536,108 @@ game <- function(batting, pitching, pitcher, league){
         #print(as.character(bases))
       }
       else{
-        #print("Out")
-        #print(as.character(bases))
-        outs <- outs + 1
+        #Double Play (probability comes from https://legacy.baseballprospectus.com/sortable/index.php?cid=2861695)
+        dp <- sample(c("DP", "No_DP"), 1, prob = c(0.10109, 0.89891))
+        if(dp == "DP" & outs < 2 & bases == 001){
+          #print(dp)
+          outs <- outs + 2
+          bases <- 000
+        }
+        else if(dp == "DP" & outs < 2 & bases == 011){
+          #print(dp)
+          outs <- outs + 2
+          #Deciding which runners got out in the double play
+          dpbase <- sample(c("100", "010", "001"), 1, prob = c(1/3, 1/3, 1/3))
+          if(dpbase == "100"){
+            bases <- 100
+          }
+          else if(dpbase == "010"){
+            bases <- 010
+          }
+          else{
+            bases <- 001
+          }
+        }
+        else if (dp == "DP" & outs == 0 & bases == 111){
+          outs <- 2
+          #print(dp)
+          #These probabilities are infered
+          dpbase <- sample(c("101", "110", "011", "001", "010", "100"), 1, prob = c(1/6, 3/12, 1/3, 1/12, 1/12, 1/12))
+          if(dpbase == "101"){
+            bases <- 101
+          }
+          else if(dpbase == "110"){
+            bases <- 110
+          }
+          else if(dpbase == "011"){
+            bases <- 011
+          }
+          else if(dpbase == "001"){
+            bases <- 001
+            runs[i] <- runs[i]+1
+          }
+          else if(dpbase == "010"){
+            bases <- 010
+            runs[i] <- runs[i]+1
+          }
+          else if(dpbase == "100"){
+            bases <- 100
+            runs[i] <- runs[i]+1
+          }
+        }
+        else if (dp == "DP" & outs == 1 & bases == 111){
+          #print(dp)
+          outs <- 3
+        }
+        else{
+          #Sacrifice plays, couldn't find documentation about probability
+          #so infered probs
+          sac <- sample(c("sac", "no_sac"), 1, prob = c(0.075,0.925))
+          if(sac == "sac" & outs < 2 & bases == 100){
+            #print(sac)
+            runs[i] <- runs[i] + 1
+            bases <- 000
+            outs <- outs + 1
+          }
+          else if(sac == "sac" & outs < 2 & bases == 010){
+            #print(sac)
+            bases <- 100
+            outs <- outs + 1
+          }
+          else if(sac == "sac" & outs < 2 & bases == 001){
+            #print(sac)
+            bases <- 010
+            outs <- outs + 1
+          }
+          else if(sac == "sac" & outs < 2 & bases == 110){
+            #print(sac)
+            runs[i] <- runs[i] + 1
+            bases <- 100
+            outs <- outs + 1
+          }
+          else if(sac == "sac" & outs < 2 & bases == 101){
+            #print(sac)
+            runs[i] <- runs[i] + 1
+            bases <- 010
+            outs <- outs + 1
+          }
+          else if(sac == "sac" & outs < 2 & bases == 011){
+            #print(sac)
+            bases <- 110
+            outs <- outs + 1
+          }
+          else if(sac == "sac" & outs < 2 & bases == 111){
+            #print(sac)
+            runs[i] <- runs[i] + 1
+            bases <- 110
+            outs <- outs + 1
+          }
+          else{
+            #print("Out")
+            #print(as.character(bases))
+            outs <- outs + 1
+          }
+        }
       }
       batter <- batter + 1
     }
