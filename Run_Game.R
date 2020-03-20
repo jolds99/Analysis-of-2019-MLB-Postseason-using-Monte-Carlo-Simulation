@@ -66,31 +66,103 @@ game <- function(batting, pitching, pitcher, league){
           bases <- 001
         }
         else if(bases == 001){
-          bases <- 101
+          adv <- sample(c("adv", "no_adv"), 1, prob = c(0.7,0.3))
+          if(adv == "adv"){
+            bases <- 101
+          }
+          else if(adv == "no_adv"){
+            bases <- 011
+          }
         }
         else if(bases == 010){
-          bases <- 001
-          runs <- runs + 1
+          adv <- sample(c("adv", "no_adv"), 1, prob = c(0.9,0.1))
+          if(adv == "adv"){
+            bases <- 001
+            runs <- runs + 1
+          }
+          else if(adv == "no_adv"){
+            bases <- 101
+          }
         }
         else if(bases == 100){
           bases <- 001
           runs <- runs + 1
         }
         else if(bases == 011){
-          bases <- 101
-          runs <- runs + 1
+          adv <- sample(c("adv", "no_adv"), 1, prob = c(0.7,0.3))
+          if(adv == "adv"){
+            bases <- 101
+            runs <- runs + 1
+          }
+          else if(adv == "no_adv"){
+            adv <- sample(c("adv", "no_adv"), 1, prob = c(0.9,0.1))
+            if(adv == "adv"){
+              bases <- 011
+              runs <- runs + 1
+            }
+            else if(adv == "no_adv"){
+              bases <- 111
+            }
+          }
         }
         else if(bases == 101){
-          bases <- 101
-          runs <- runs + 1
+          adv <- sample(c("adv", "no_adv"), 1, prob = c(0.98,0.02))
+          if(adv == "adv"){
+            runs <- runs + 1
+            adv <- sample(c("adv", "no_adv"), 1, prob = c(0.65,0.35))
+            if(adv == "adv"){
+              bases <- 101
+            }
+            else if(adv == "no_adv"){
+              bases <- 011
+            }
+          }
+          else if(adv == "no_adv"){
+            bases <- 111
+          }
         }
         else if(bases == 110){
-          bases <- 001
-          runs <- runs + 2
+          adv <- sample(c("adv", "no_adv"), 1, prob = c(0.9,0.1))
+          if(adv == "adv"){
+            bases <- 001
+            runs <- runs+2
+          }
+          else if(adv == "no_adv"){
+            adv <- sample(c("adv", "no_adv"), 1, prob = c(0.65,0.35))
+            if(adv == "adv"){
+              bases <- 101
+            }
+            else if(adv == "no_adv"){
+              bases <- 011
+            }
+          }
         }
         else if(bases == 111){
-          bases <- 001
-          runs <- runs + 2
+          adv <- sample(c("adv", "no_adv"), 1, prob = c(0.7,0.3))
+          if(adv == "adv"){
+            bases <- 101
+            runs <- runs+2
+          }
+          else if(adv == "no_adv"){
+            #Counting run for runner on third
+            runs <- runs+1
+            #Checking advance for runner on second
+            adv <- sample(c("adv", "no_adv"), 1, prob = c(0.9,0.1))
+            if(adv == "adv"){
+              runs <- runs+1
+              #Checking for advance for runner on first
+              adv <- sample(c("adv", "no_adv"), 1, prob = c(0.7,0.3))
+              if(adv == "adv"){
+                bases <- 101
+              }
+              else if(adv == "no_adv"){
+                bases <- 011
+              }
+            }
+            else if(adv == "no_adv"){
+              bases <- 111
+            }
+          }
         }
         #print(as.character(bases))
       }
@@ -100,32 +172,68 @@ game <- function(batting, pitching, pitcher, league){
           bases <- 010
         }
         else if(bases == 001){
-          bases <- 010
-          runs <- runs + 1
+          adv <- sample(c("adv", "no_adv"), 1, prob = c(0.85,0.15))
+          if(adv == "adv"){
+            bases <- 010
+            runs <- runs+1
+          }
+          else if(adv == "no_adv"){
+            bases <- 110
+          }
         }
         else if(bases == 010){
-          bases <- 010
-          runs <- runs + 1
+          adv <- sample(c("adv", "no_adv"), 1, prob = c(0.99,0.01))
+          if(adv == "adv"){
+            bases <- 010
+            runs <- runs+1
+          }  
+          else if(adv == "no_adv"){
+            bases <- 110
+          }
         }
         else if(bases == 100){
           bases <- 010
           runs <- runs + 1
         }
         else if(bases == 011){
-          bases <- 010
-          runs <- runs + 2
+          #Checking advance for runner on first
+          adv1 <- sample(c("adv", "no_adv"), 1, prob = c(0.85,0.15))
+          if(adv1 == "adv"){
+            runs <- runs+2
+            bases <- 010
+          }  
+          else if(adv == "no_adv"){
+            runs <- runs+1
+            bases <- 110
+          }
         }
         else if(bases == 101){
-          bases <- 010
-          runs <- runs + 2
+          #Checking advance for runner on first
+          adv1 <- sample(c("adv", "no_adv"), 1, prob = c(0.85,0.15))
+          if(adv1 == "adv"){
+            runs <- runs+2
+            bases <- 010
+          }  
+          else if(adv1 == "no_adv"){
+            runs <- runs+1
+            bases <- 110
+          }
         }
         else if(bases == 110){
           bases <- 010
           runs <- runs + 2
         }
         else if(bases == 111){
-          bases <- 010
-          runs <- runs + 3
+          #Checking advance for runner on first
+          adv1 <- sample(c("adv", "no_adv"), 1, prob = c(0.85,0.15))
+          if(adv1 == "adv"){
+            runs <- runs+3
+            bases <- 010
+          }  
+          else if(adv1 == "no_adv"){
+            runs <- runs+2
+            bases <- 110
+          }
         }
         #print(as.character(bases))
       }
@@ -267,15 +375,15 @@ game <- function(batting, pitching, pitcher, league){
           }
           else if(dpbase == "001"){
             bases <- 001
-            runs[i] <- runs[i]+1
+            runs <- runs+1
           }
           else if(dpbase == "010"){
             bases <- 010
-            runs[i] <- runs[i]+1
+            runs <- runs+1
           }
           else if(dpbase == "100"){
             bases <- 100
-            runs[i] <- runs[i]+1
+            runs <- runs+1
           }
         }
         else if (dp == "DP" & outs == 1 & bases == 111){
@@ -288,7 +396,7 @@ game <- function(batting, pitching, pitcher, league){
           sac <- sample(c("sac", "no_sac"), 1, prob = c(0.075,0.925))
           if(sac == "sac" & outs < 2 & bases == 100){
             #print(sac)
-            runs[i] <- runs[i] + 1
+            runs <- runs + 1
             bases <- 000
             outs <- outs + 1
           }
@@ -304,13 +412,13 @@ game <- function(batting, pitching, pitcher, league){
           }
           else if(sac == "sac" & outs < 2 & bases == 110){
             #print(sac)
-            runs[i] <- runs[i] + 1
+            runs <- runs + 1
             bases <- 100
             outs <- outs + 1
           }
           else if(sac == "sac" & outs < 2 & bases == 101){
             #print(sac)
-            runs[i] <- runs[i] + 1
+            runs <- runs + 1
             bases <- 010
             outs <- outs + 1
           }
@@ -321,7 +429,7 @@ game <- function(batting, pitching, pitcher, league){
           }
           else if(sac == "sac" & outs < 2 & bases == 111){
             #print(sac)
-            runs[i] <- runs[i] + 1
+            runs <- runs + 1
             bases <- 110
             outs <- outs + 1
           }
@@ -373,31 +481,103 @@ game <- function(batting, pitching, pitcher, league){
           bases <- 001
         }
         else if(bases == 001){
-          bases <- 101
+          adv <- sample(c("adv", "no_adv"), 1, prob = c(0.7,0.3))
+          if(adv == "adv"){
+            bases <- 101
+          }
+          else if(adv == "no_adv"){
+            bases <- 011
+          }
         }
         else if(bases == 010){
-          bases <- 001
-          runs <- runs + 1
+          adv <- sample(c("adv", "no_adv"), 1, prob = c(0.9,0.1))
+          if(adv == "adv"){
+            bases <- 001
+            runs <- runs + 1
+          }
+          else if(adv == "no_adv"){
+            bases <- 101
+          }
         }
         else if(bases == 100){
           bases <- 001
           runs <- runs + 1
         }
         else if(bases == 011){
-          bases <- 101
-          runs <- runs + 1
+          adv <- sample(c("adv", "no_adv"), 1, prob = c(0.7,0.3))
+          if(adv == "adv"){
+            bases <- 101
+            runs <- runs + 1
+          }
+          else if(adv == "no_adv"){
+            adv <- sample(c("adv", "no_adv"), 1, prob = c(0.9,0.1))
+            if(adv == "adv"){
+              bases <- 011
+              runs <- runs + 1
+            }
+            else if(adv == "no_adv"){
+              bases <- 111
+            }
+          }
         }
         else if(bases == 101){
-          bases <- 101
-          runs <- runs + 1
+          adv <- sample(c("adv", "no_adv"), 1, prob = c(0.98,0.02))
+          if(adv == "adv"){
+            runs <- runs + 1
+            adv <- sample(c("adv", "no_adv"), 1, prob = c(0.65,0.35))
+            if(adv == "adv"){
+              bases <- 101
+            }
+            else if(adv == "no_adv"){
+              bases <- 011
+            }
+          }
+          else if(adv == "no_adv"){
+            bases <- 111
+          }
         }
         else if(bases == 110){
-          bases <- 001
-          runs <- runs + 2
+          adv <- sample(c("adv", "no_adv"), 1, prob = c(0.9,0.1))
+          if(adv == "adv"){
+            bases <- 001
+            runs <- runs+2
+          }
+          else if(adv == "no_adv"){
+            adv <- sample(c("adv", "no_adv"), 1, prob = c(0.65,0.35))
+            if(adv == "adv"){
+              bases <- 101
+            }
+            else if(adv == "no_adv"){
+              bases <- 011
+            }
+          }
         }
         else if(bases == 111){
-          bases <- 001
-          runs <- runs + 2
+          adv <- sample(c("adv", "no_adv"), 1, prob = c(0.7,0.3))
+          if(adv == "adv"){
+            bases <- 101
+            runs <- runs+2
+          }
+          else if(adv == "no_adv"){
+            #Counting run for runner on third
+            runs <- runs+1
+            #Checking advance for runner on second
+            adv <- sample(c("adv", "no_adv"), 1, prob = c(0.9,0.1))
+            if(adv == "adv"){
+              runs <- runs+1
+              #Checking for advance for runner on first
+              adv <- sample(c("adv", "no_adv"), 1, prob = c(0.7,0.3))
+              if(adv == "adv"){
+                bases <- 101
+              }
+              else if(adv == "no_adv"){
+                bases <- 011
+              }
+            }
+            else if(adv == "no_adv"){
+              bases <- 111
+            }
+          }
         }
         #print(as.character(bases))
       }
@@ -407,32 +587,68 @@ game <- function(batting, pitching, pitcher, league){
           bases <- 010
         }
         else if(bases == 001){
-          bases <- 010
-          runs <- runs + 1
+          adv <- sample(c("adv", "no_adv"), 1, prob = c(0.85,0.15))
+          if(adv == "adv"){
+            bases <- 010
+            runs <- runs+1
+          }
+          else if(adv == "no_adv"){
+            bases <- 110
+          }
         }
         else if(bases == 010){
-          bases <- 010
-          runs <- runs + 1
+          adv <- sample(c("adv", "no_adv"), 1, prob = c(0.99,0.01))
+          if(adv == "adv"){
+            bases <- 010
+            runs <- runs+1
+          }  
+          else if(adv == "no_adv"){
+            bases <- 110
+          }
         }
         else if(bases == 100){
           bases <- 010
           runs <- runs + 1
         }
         else if(bases == 011){
-          bases <- 010
-          runs <- runs + 2
+          #Checking advance for runner on first
+          adv1 <- sample(c("adv", "no_adv"), 1, prob = c(0.85,0.15))
+          if(adv1 == "adv"){
+            runs <- runs+2
+            bases <- 010
+          }  
+          else if(adv == "no_adv"){
+            runs <- runs+1
+            bases <- 110
+          }
         }
         else if(bases == 101){
-          bases <- 010
-          runs <- runs + 2
+          #Checking advance for runner on first
+          adv1 <- sample(c("adv", "no_adv"), 1, prob = c(0.85,0.15))
+          if(adv1 == "adv"){
+            runs <- runs+2
+            bases <- 010
+          }  
+          else if(adv1 == "no_adv"){
+            runs <- runs+1
+            bases <- 110
+          }
         }
         else if(bases == 110){
           bases <- 010
           runs <- runs + 2
         }
         else if(bases == 111){
-          bases <- 010
-          runs <- runs + 3
+          #Checking advance for runner on first
+          adv1 <- sample(c("adv", "no_adv"), 1, prob = c(0.85,0.15))
+          if(adv1 == "adv"){
+            runs <- runs+3
+            bases <- 010
+          }  
+          else if(adv1 == "no_adv"){
+            runs <- runs+2
+            bases <- 110
+          }
         }
         #print(as.character(bases))
       }
@@ -574,15 +790,15 @@ game <- function(batting, pitching, pitcher, league){
           }
           else if(dpbase == "001"){
             bases <- 001
-            runs[i] <- runs[i]+1
+            runs <- runs+1
           }
           else if(dpbase == "010"){
             bases <- 010
-            runs[i] <- runs[i]+1
+            runs <- runs+1
           }
           else if(dpbase == "100"){
             bases <- 100
-            runs[i] <- runs[i]+1
+            runs <- runs+1
           }
         }
         else if (dp == "DP" & outs == 1 & bases == 111){
@@ -595,7 +811,7 @@ game <- function(batting, pitching, pitcher, league){
           sac <- sample(c("sac", "no_sac"), 1, prob = c(0.075,0.925))
           if(sac == "sac" & outs < 2 & bases == 100){
             #print(sac)
-            runs[i] <- runs[i] + 1
+            runs <- runs + 1
             bases <- 000
             outs <- outs + 1
           }
@@ -611,13 +827,13 @@ game <- function(batting, pitching, pitcher, league){
           }
           else if(sac == "sac" & outs < 2 & bases == 110){
             #print(sac)
-            runs[i] <- runs[i] + 1
+            runs <- runs + 1
             bases <- 100
             outs <- outs + 1
           }
           else if(sac == "sac" & outs < 2 & bases == 101){
             #print(sac)
-            runs[i] <- runs[i] + 1
+            runs <- runs + 1
             bases <- 010
             outs <- outs + 1
           }
@@ -628,7 +844,7 @@ game <- function(batting, pitching, pitcher, league){
           }
           else if(sac == "sac" & outs < 2 & bases == 111){
             #print(sac)
-            runs[i] <- runs[i] + 1
+            runs <- runs + 1
             bases <- 110
             outs <- outs + 1
           }

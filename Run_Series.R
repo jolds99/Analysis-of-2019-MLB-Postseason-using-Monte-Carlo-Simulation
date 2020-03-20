@@ -18,7 +18,7 @@ wildcard <- function(n, home, away){
   }
   for(i in 1:n){
     #Away on Offense
-    #print(paste0("Running game: ", i, " of ", n))
+    print(paste0("Running game: ", i, " of ", n))
     abatting <- get(paste0(away, "_Batting"))
     hpitching <- get(paste0(home, "_Pitching"))
     #Ace will start in Wild Card game
@@ -47,8 +47,8 @@ wildcard <- function(n, home, away){
   return(results)
 }
 #Simulating each game 100,000 times
-nlWC <- wildcard(100000, "WSN", "MIL")
-alWC <- wildcard(100000, "OAK", "TBR")
+nlWC <- wildcard(1000, "WSN", "MIL")
+alWC <- wildcard(1000, "OAK", "TBR")
 
 
 #Divisional Series
