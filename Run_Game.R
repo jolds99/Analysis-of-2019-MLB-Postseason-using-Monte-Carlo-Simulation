@@ -202,7 +202,7 @@ game <- function(batting, pitching, pitcher, league){
             runs <- runs+2
             bases <- 010
           }  
-          else if(adv == "no_adv"){
+          else if(adv1 == "no_adv"){
             runs <- runs+1
             bases <- 110
           }
@@ -617,7 +617,7 @@ game <- function(batting, pitching, pitcher, league){
             runs <- runs+2
             bases <- 010
           }  
-          else if(adv == "no_adv"){
+          else if(adv1 == "no_adv"){
             runs <- runs+1
             bases <- 110
           }

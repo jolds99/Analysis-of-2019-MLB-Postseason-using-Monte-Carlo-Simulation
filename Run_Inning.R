@@ -163,7 +163,7 @@ inning <- function(n, ibases, iouts){
             runs[i] <- runs[i]+2
             bases <- 010
           }  
-          else if(adv == "no_adv"){
+          else if(adv1 == "no_adv"){
             runs[i] <- runs[i]+1
             bases <- 110
           }
